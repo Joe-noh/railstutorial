@@ -1,13 +1,15 @@
 # encoding: utf-8
 
-class PictureUploader < CarrierWave::Uploader::Base
+class PictureUploader < CarrierWave::Uploader::Riak
   include CarrierWave::MiniMagick
   process resize_to_limit: [400, 400]
 
-  storage :file
+  def key
+    original_filename
+  end
 
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  def bucket
+    "picture"
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
