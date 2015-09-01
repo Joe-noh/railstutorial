@@ -15,6 +15,7 @@ class Api::PasswordResetsTest < ActionDispatch::IntegrationTest
     post api_password_resets_path, password_reset: {email: @user.email}
     assert_not_equal @user.reset_digest, @user.reload.reset_digest
     assert_equal 1, ActionMailer::Base.deliveries.size
+    assert_match /https:\/\//, ActionMailer::Base.deliveries.first.body.encoded
     assert_equal 201, response.status
   end
 

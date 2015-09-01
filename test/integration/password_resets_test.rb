@@ -19,6 +19,7 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
     post password_resets_path, password_reset: {email: @user.email}
     assert_not_equal @user.reset_digest, @user.reload.reset_digest
     assert_equal 1, ActionMailer::Base.deliveries.size
+    assert_match /https:\/\//, ActionMailer::Base.deliveries.first.body.encoded
     assert_not flash.empty?
     assert_redirected_to root_url
 
