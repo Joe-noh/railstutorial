@@ -19,6 +19,7 @@ class Api::UserLoginTest < ActionDispatch::IntegrationTest
 
     assert_equal 201, response.status
     assert_not_empty json["auth_token"]
+    assert_not_empty json["user"]
   end
 
   test "token should be remembered regardless of the remember_me parameter" do

@@ -8,6 +8,13 @@ module Api::SessionsHelper
     end
   end
 
+  def render_authenticated(user, options)
+    render options.merge(
+      template: "api/shared/authenticated",
+      locals:   {token: token_for(user), user: user}
+    )
+  end
+
   def current_user
     @current_user
   end

@@ -13,10 +13,21 @@ class Api::PasswordResetsTest < ActionDispatch::IntegrationTest
 
   test 'should return 201 when email was valid' do
     post api_password_resets_path, password_reset: {email: @user.email}
+
     assert_not_equal @user.reset_digest, @user.reload.reset_digest
     assert_equal 1, ActionMailer::Base.deliveries.size
     assert_match /https:\/\//, ActionMailer::Base.deliveries.first.body.encoded
     assert_equal 201, response.status
+
+    user = assigns(:user)
+
+    patch api_password_reset_path(user.reset_token),
+          email: user.email,
+          user:  {password: 'foobar', password_confirmation: 'foobar'}
+
+    json = JSON.parse(response.body)
+    assert_not_empty json["auth_token"]
+    assert_not_empty json["user"]
   end
 
   test 'should return 422 if user resets password with blank string' do

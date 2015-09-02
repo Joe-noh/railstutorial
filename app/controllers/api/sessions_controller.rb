@@ -5,7 +5,7 @@ class Api::SessionsController < Api::ApplicationController
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user && @user.authenticate(params[:session][:password])
       if @user.activated?
-        render json: {auth_token: token_for(@user)}, status: :created
+        render_authenticated @user, status: :created
       else
         message = "Account not activated. Check your email for the activation link."
         render_errors [message], status: :forbidden
