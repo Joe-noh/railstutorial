@@ -38,10 +38,15 @@ class Api::UsersSignupTest < ActionDispatch::IntegrationTest
 
     # Activate with valid token and correct email
     get edit_api_account_activation_path(user.activation_token, email: user.email)
+
+    json = JSON.parse(response.body)
+
     assert_equal 200, response.status
     assert user.reload.activated?
+    assert_not_empty json["auth_token"]
+    assert_not_empty json["user"]
 
-    # ALready activated
+    # Already activated
     get edit_api_account_activation_path(user.activation_token, email: user.email)
     assert_equal 422, response.status
   end
