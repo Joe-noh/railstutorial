@@ -8,10 +8,6 @@ class Micropost < ActiveRecord::Base
   validates :content, presence: true, length: { maximum: 140 }
   validate :picture_size
 
-  def full_picture_url(host)
-    URI.join("https://"+host, picture.url).to_s if picture.url
-  end
-
   private
 
   def picture_size

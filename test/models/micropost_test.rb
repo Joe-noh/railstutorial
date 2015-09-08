@@ -32,8 +32,7 @@ class MicropostTest < ActiveSupport::TestCase
 
   test "picture_url" do
     micropost = microposts(:orange)
-    full_url = micropost.full_picture_url("localhost")
 
-    assert_equal "https://localhost"+micropost.picture.url, full_url
+    assert_match /^https:\/\//, micropost.picture_url
   end
 end
