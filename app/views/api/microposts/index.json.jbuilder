@@ -1,3 +1,3 @@
 json.array! @microposts do |micropost|
-  json.partial! micropost, locals: {request: request}
+  json.partial! micropost
 end

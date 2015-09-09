@@ -11,7 +11,7 @@ class Api::UsersController < Api::ApplicationController
   def show
     @microposts = @user.microposts.paginate(page: params[:page])
     unless @user.activated
-      render_errors ["Account not activated"], status: :forbidden, locals: {request: request}
+      render_errors ["Account not activated"], status: :forbidden
     end
   end
 

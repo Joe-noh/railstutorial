@@ -4,6 +4,6 @@ class Api::FeedController < Api::ApplicationController
   def index
     @microposts = current_user.feed.paginate(page: params[:page])
 
-    render template: "api/microposts/index", locals: {request: request}
+    render template: "api/microposts/index"
   end
 end
