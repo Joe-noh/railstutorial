@@ -53,6 +53,12 @@ class MicropostTest < ActiveSupport::TestCase
       assert_not micropost.starred?
     end
 
+    star.update(status: :candidate)
+    travel_to(now) do
+      micropost = user.microposts.create(content: 'Hi!')
+      assert_not micropost.starred?
+    end
+
     star.update(status: :declined)
     travel_to(now) do
       micropost = user.microposts.create(content: 'Hi!')
