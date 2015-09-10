@@ -1,0 +1,1 @@
+Time.zone = 'Asia/Tokyo'
