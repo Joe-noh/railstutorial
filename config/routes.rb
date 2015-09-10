@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get  'feed'  => 'feed#index'
 
     resources :users, except: [:new, :edit] do
+      get 'stars' => 'users#stars', on: :collection
       member do
         get :following, :followers
         get    'follow' => 'users#follow_info'
