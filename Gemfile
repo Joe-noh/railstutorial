@@ -48,6 +48,7 @@ gem 'jwt', '~> 1.5'
 
 gem 'activeadmin',         github: 'activeadmin'
 gem 'responders'
+gem 'devise'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
