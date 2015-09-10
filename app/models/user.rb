@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
   end
 
   def star?(at = Time.zone.now)
-    star = stars.where(date: shifted_date(at)).first
+    star = stars.find_by(date: shifted_date(at))
     !!(star && star.accepted?)
   end
 
