@@ -78,8 +78,9 @@ class User < ActiveRecord::Base
   end
 
   def feed
+    quoted_true = ActiveRecord::Base.connection.quoted_true
     following_ids = 'SELECT followed_id FROM relationships WHERE  follower_id = :user_id'
-    Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id).includes(:user)
+    Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id OR starred = #{quoted_true}", user_id: id).includes(:user)
   end
 
   # Follows a user.
