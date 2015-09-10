@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
     locale = session[:locale] || http_accept_language.compatible_language_from(I18n.available_locales)
     I18n.locale = locale || I18n.default_locale
   end
+
+  def set_admin_locale
+      I18n.locale = :en
+  end
 end
