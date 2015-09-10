@@ -124,6 +124,16 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test 'feed should include starred posts regardless of relationship' do
+    archer = users(:archer)
+    michael = users(:michael)
+
+    post_starred = archer.microposts.create(content: 'This is starred!', starred: true)
+
+    assert_not michael.following?(archer)
+    assert michael.feed.include?(post_starred)
+  end
+
   test "should fetch the stars" do
     stars = User.current_stars(Date.new(2015, 9, 10))
     assert stars.member?(stars(:archer0).user)
