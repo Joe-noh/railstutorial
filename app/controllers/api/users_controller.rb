@@ -4,6 +4,8 @@ class Api::UsersController < Api::ApplicationController
   before_action :correct_user, only: [:update]
   before_action :admin_user, only: [:destroy]
 
+  include DateTimeHelper
+
   def index
     @users = User.where(activated: true).paginate(page: params[:page])
   end
@@ -74,6 +76,11 @@ class Api::UsersController < Api::ApplicationController
     current_user.unfollow(user) if current_user.following? user
 
     render json: "", status: :accepted
+  end
+
+  def stars
+    @users = User.current_stars(shifted_date).paginate(page: params[:page])
+    render action: :index
   end
 
   private

@@ -96,4 +96,24 @@ class Api::FetchingUsersTest < ActionDispatch::IntegrationTest
       assert_equal expected_attrs, user.keys.sort
     end
   end
+
+  test "stars should return current stars" do
+    travel_to Time.zone.local(2015, 9, 10, 10, 00) do
+      get stars_api_users_path, {}, @headers
+      json = JSON.parse(response.body)
+
+      assert json.any? {|user| user["id"] == users(:archer).id }
+      assert json.all? do |user|
+        star = Star.find_by(user_id: user["id"], date: Date.today)
+        star.status == :accepted
+      end
+    end
+
+    travel_to Time.zone.local(2015, 9, 9, 10, 00) do
+      get stars_api_users_path, {}, @headers
+      json = JSON.parse(response.body)
+
+      assert json.empty?
+    end
+  end
 end
