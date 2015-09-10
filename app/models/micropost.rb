@@ -8,11 +8,18 @@ class Micropost < ActiveRecord::Base
   validates :content, presence: true, length: { maximum: 140 }
   validate :picture_size
 
+  before_create :set_starred
+
   private
 
   def picture_size
     if picture.size > 5.megabytes
       errors.add(:picture, 'should be less than 5MB')
     end
+  end
+
+  def set_starred
+    self.starred = user.star?
+    true
   end
 end
