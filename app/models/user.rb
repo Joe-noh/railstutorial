@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
     SecureRandom.urlsafe_base64
   end
 
-  def self.current_stars(date = Date.today)
+  def self.current_stars(date)
     User.joins(:stars).where(activated: true, stars: {date: date, status: :accepted})
   end
 end
