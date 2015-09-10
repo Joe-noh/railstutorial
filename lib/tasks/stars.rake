@@ -1,6 +1,10 @@
 namespace :stars do
-  desc "TODO"
+  desc "スターを選びます"
   task election: :environment do
-    StarElection.new.elect
+    today = Date.today
+
+    if Rokuyou.new(today).taian?
+      StarElection.new(today).elect!
+    end
   end
 end
