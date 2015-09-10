@@ -167,4 +167,22 @@ class UserTest < ActiveSupport::TestCase
     star.update(status: :declined)
     assert_not lana.star?(now)
   end
+
+  test 'star_status' do
+    today = DateTime.new(1950, 2, 10)
+    now = Time.zone.local(1950, 2, 10, 10, 45, 11)
+    lana = users(:lana)
+
+    assert_nil lana.star_status(now)
+
+    star = lana.stars.create(date: today, status: :candidate)
+    assert_equal :candidate, lana.star_status(now)
+
+    star.update(status: :accepted)
+    assert lana.star?(now)
+    assert_equal :accepted, lana.star_status(now)
+
+    star.update(status: :declined)
+    assert_equal :declined, lana.star_status(now)
+  end
 end
