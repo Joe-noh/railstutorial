@@ -123,4 +123,20 @@ class UserTest < ActiveSupport::TestCase
       assert_not michael.feed.include?(post_unfollowed), 'feed for michael should not include archer\'s micropost'
     end
   end
+
+  test "should fetch the stars" do
+    stars = User.current_stars(Date.new(2015, 9, 10))
+    assert stars.member?(stars(:archer0).user)
+  end
+
+  test "current_stars should not include un-activated users" do
+    user = stars(:archer0).user
+    user.activated = false
+    user.activated_at = nil
+
+    user.save
+
+    stars = User.current_stars(Date.new(2015, 9, 10))
+    assert_not stars.member?(user)
+  end
 end

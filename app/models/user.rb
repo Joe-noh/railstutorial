@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
            foreign_key: :followed_id, dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  has_many :stars, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token
 
   # HTML5-compatible email-format validator
@@ -115,5 +116,9 @@ class User < ActiveRecord::Base
   # Returns a ramdon token.
   def self.new_token
     SecureRandom.urlsafe_base64
+  end
+
+  def self.current_stars(date = Date.today)
+    User.joins(:stars).where(activated: true, stars: {date: date, status: :accepted})
   end
 end
