@@ -1,0 +1,19 @@
+michael0:
+  user: michael
+  date: 2015-09-10
+  status: candidate
+
+michael1:
+  user: michael
+  date: 2015-09-11
+  status: accepted
+
+michael2:
+  user: michael
+  date: 2015-09-12
+  status: declined
+
+archer0:
+  user: archer
+  date: 2015-09-10
+  status: accepted
