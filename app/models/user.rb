@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include DateTimeHelper
+
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
            foreign_key: :follower_id, dependent: :destroy
@@ -103,6 +105,11 @@ class User < ActiveRecord::Base
   def avatar_url
     gravatar_id = Digest::MD5::hexdigest(email.downcase)
     "https://secure.gravatar.com/avatar/#{gravatar_id}"
+  end
+
+  def star?(at = Time.zone.now)
+    star = stars.find_by(date: shifted_date(at))
+    !!(star && star.accepted?)
   end
 
   # Returns the hash digest of the given string

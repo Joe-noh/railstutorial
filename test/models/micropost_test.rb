@@ -35,4 +35,34 @@ class MicropostTest < ActiveSupport::TestCase
 
     assert_match /^https:\/\//, micropost.picture_url
   end
+
+  test 'starred posts' do
+    today = DateTime.new(1950, 2, 10)
+    now = Time.zone.local(1950, 2, 10, 10, 45, 11)
+
+    user = users(:lana)
+    star = user.stars.create(date: today, status: :accepted)
+
+    travel_to(now) do
+      micropost = user.microposts.create(content: 'Hi!')
+      assert micropost.starred?
+    end
+
+    travel_to(1.days.ago(now)) do
+      micropost = user.microposts.create(content: 'Hi!')
+      assert_not micropost.starred?
+    end
+
+    star.update(status: :candidate)
+    travel_to(now) do
+      micropost = user.microposts.create(content: 'Hi!')
+      assert_not micropost.starred?
+    end
+
+    star.update(status: :declined)
+    travel_to(now) do
+      micropost = user.microposts.create(content: 'Hi!')
+      assert_not micropost.starred?
+    end
+  end
 end

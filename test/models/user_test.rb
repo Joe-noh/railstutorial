@@ -139,4 +139,22 @@ class UserTest < ActiveSupport::TestCase
     stars = User.current_stars(Date.new(2015, 9, 10))
     assert_not stars.member?(user)
   end
+
+  test 'star' do
+    today = DateTime.new(1950, 2, 10)
+    now = Time.zone.local(1950, 2, 10, 10, 45, 11)
+    lana = users(:lana)
+
+    assert_not lana.star?
+
+    star = lana.stars.create(date: today, status: :candidate)
+    assert_not lana.star?(now)
+
+    star.update(status: :accepted)
+    assert lana.star?(now)
+    assert_not lana.star?(1.day.ago(now))
+
+    star.update(status: :declined)
+    assert_not lana.star?(now)
+  end
 end
