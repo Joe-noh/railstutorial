@@ -46,6 +46,10 @@ gem 'fog', '~> 1.23'
 
 gem 'jwt', '~> 1.5'
 
+gem 'activeadmin',         github: 'activeadmin'
+gem 'responders'
+gem 'devise'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.3.9'
