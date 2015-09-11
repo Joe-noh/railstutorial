@@ -20,10 +20,10 @@ class StarElection
     star_users = []
 
     while (star_users.size < num_stars)
-      user = User.where(condition, random: Random.rand).order(random: :asc).limit(1).first
+      user = User.where(condition, random: Random.rand).order(random: :asc).first
 
       if user.nil?
-        user = User.where(condition, random: 0.0).order(random: :asc).limit(1).first
+        user = User.where(condition, random: 0.0).order(random: :asc).first
       end
 
       next if elected_ids.include?(user.id)
