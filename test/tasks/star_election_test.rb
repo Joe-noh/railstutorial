@@ -3,7 +3,7 @@ require 'test_helper'
 class StarElectionTest < ActiveSupport::TestCase
 
   def setup
-    @taian_day = Date.new(2015, 9, 5)
+    @taian_day = Time.zone.local(2015, 9, 5).to_date
   end
 
   test "rake stars:election should create stars on 大安" do
