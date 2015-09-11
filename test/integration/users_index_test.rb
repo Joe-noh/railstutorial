@@ -34,8 +34,8 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   end
 
   test 'index should not include inactive users' do
-    inactive_user, login_user = User.first(2)
-    log_in_as(login_user)
+    inactive_user = @non_admin
+    log_in_as(users :lana)
 
     get users_path
     assert_select 'a[href=?]', user_path(inactive_user), count: 1
