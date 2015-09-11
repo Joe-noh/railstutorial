@@ -125,13 +125,16 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'feed should include starred posts regardless of relationship' do
-    archer = users(:archer)
-    michael = users(:michael)
+    travel_to(Time.zone.local 2015, 9, 10, 10) do
+      archer = users(:archer)
+      michael = users(:michael)
 
-    post_starred = archer.microposts.create(content: 'This is starred!', starred: true)
+      post_starred = archer.microposts.create(content: 'This is starred!', starred: true)
 
-    assert_not michael.following?(archer)
-    assert michael.feed.include?(post_starred)
+      assert archer.star?
+      assert_not michael.following?(archer), "michael follows archer"
+      assert michael.feed.include?(post_starred), "starred post not included"
+    end
   end
 
   test "should fetch the stars" do
