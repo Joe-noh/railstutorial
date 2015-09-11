@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   before_save { self.email.downcase! }
   before_create :create_activation_digest
+  before_create :set_random
 
   validates :name, presence: true, length: {maximum: 50}
   validates :email, presence: true, length: {maximum: 255},
@@ -117,6 +118,10 @@ class User < ActiveRecord::Base
     if star = stars.find_by(date: shifted_date(at))
       star.status
     end
+  end
+
+  def set_random
+    self.random = Random.rand
   end
 
   # Returns the hash digest of the given string
