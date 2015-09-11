@@ -5,28 +5,28 @@ michael:
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
-  random: <%= 0.9 %>
+  random: <%= Random.rand %>
 archer:
   name: Sterling Archer
   email: duchess@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
-  random: <%= 0.8 %>
+  random: <%= Random.rand %>
 lana:
   name: Lana Kane
   email: hands@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
-  random: <%= 0.7 %>
+  random: <%= Random.rand %>
 mallory:
   name: Mallory Archer
   email: boss@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
-  random: <%= 0.6 %>
+  random: <%= Random.rand %>
 
 <% 30.times do |n| %>
 user_<%= n %>:
@@ -35,5 +35,5 @@ user_<%= n %>:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
-  random: <%= 0.5 ** n %>
+  random: <%= Random.rand %>
 <% end %>

@@ -15,7 +15,7 @@ class StarElection
     quoted_true = ActiveRecord::Base.connection.quoted_true
     condition = "activated = #{quoted_true} AND random >= :random"
 
-    num_stars = (User.count / 100.0).ceil
+    num_stars = (User.where(activated: true).count / 100.0).ceil
     elected_ids = Set.new
     star_users = []
 

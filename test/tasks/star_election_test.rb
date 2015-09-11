@@ -7,11 +7,11 @@ class StarElectionTest < ActiveSupport::TestCase
   end
 
   test "rake stars:election should create stars on 大安" do
-    stars_count = (User.count / 100.0).ceil
+    stars_count = (User.where(activated: true).count / 100.0).ceil
 
     travel_to(@taian_day) do
       assert_difference "Star.count", stars_count do
-        Rake::Task['stars:election'].invoke
+        Rake::Task['stars:election'].execute
       end
     end
   end
@@ -20,7 +20,7 @@ class StarElectionTest < ActiveSupport::TestCase
     1.upto(5) do |i|
       travel_to(@taian_day+i) do
         assert_no_difference "Star.count" do
-          Rake::Task['stars:election'].invoke
+          Rake::Task['stars:election'].execute
         end
       end
     end
