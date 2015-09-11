@@ -1,5 +1,12 @@
 ActiveAdmin.setup do |config|
   config.before_filter :set_admin_locale
+
+  config.clear_stylesheets!
+  config.register_stylesheet 'admin/active_admin.css'
+
+  config.clear_javascripts!
+  config.register_javascript 'admin/active_admin.js'
+
   # == Site Title
   #
   # Set the title that is displayed on the main layout
