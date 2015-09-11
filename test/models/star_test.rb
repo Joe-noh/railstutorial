@@ -57,4 +57,19 @@ class StarTest < ActiveSupport::TestCase
     @star.date = nil
     assert_not @star.valid?
   end
+
+  test 'Star#active?' do
+    today = Date.new(1945, 6, 5)
+
+    assert_not Star.active?(today), 'The day without any star is not active'
+
+    star = @user.stars.create(date: today, status: :candidate)
+    assert Star.active?(today), 'The day with a candidate star is active'
+
+    star.update(status: :declined)
+    assert Star.active?(today), 'The day with an accepted star is active'
+
+    star.update(status: :accepted)
+    assert Star.active?(today), 'The day with a declined star is active'
+  end
 end
