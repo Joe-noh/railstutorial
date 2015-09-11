@@ -113,6 +113,12 @@ class User < ActiveRecord::Base
     !!(star && star.accepted?)
   end
 
+  def star_status(at = Time.zone.now)
+    if star = stars.find_by(date: shifted_date(at))
+      star.status
+    end
+  end
+
   # Returns the hash digest of the given string
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ?
