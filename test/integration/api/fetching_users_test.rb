@@ -43,9 +43,10 @@ class Api::FetchingUsersTest < ActionDispatch::IntegrationTest
 
     assert json.is_a?(Hash)
 
-    expected_attrs = %w[id name avatar_url microposts following_count followers_count micropost_count].sort
+    expected_attrs = %w[id name avatar_url microposts following_count followers_count micropost_count star].sort
     assert_equal expected_attrs, json.keys.sort
 
+    assert_equal @user.star?,            json["star"]
     assert_equal @user.avatar_url,       json["avatar_url"]
     assert_equal @user.following.count,  json["following_count"]
     assert_equal @user.followers.count,  json["followers_count"]
