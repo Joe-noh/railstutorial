@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     resources :microposts, only: [:create, :destroy]
 
     get 'stardom' => 'stardom#show'
+    patch 'stardom' => 'stardom#update'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

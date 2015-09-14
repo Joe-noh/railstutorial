@@ -89,4 +89,62 @@ class Api::StardomControllerTest < ActionController::TestCase
     assert_equal true, json['active']
     assert_equal 'declined', json['star_status']
   end
+
+  test 'update should require authentication' do
+    @request.headers["Authorization"] = nil
+    patch :update, format: :json
+    assert_equal 401, response.status
+  end
+
+  test 'update for non-candidate user' do
+    travel_to(@now) do
+      patch :update, stardom: {accept: 'true'}, format: :json
+    end
+
+    assert_equal 403, response.status
+  end
+
+  test 'accept a star' do
+    star = @user.stars.create(date: @today, status: :candidate)
+
+    travel_to(@now) do
+      patch :update, stardom: {accept: 'true'}, format: :json
+    end
+
+    assert_equal 200, response.status
+    assert_equal :accepted, star.reload.status
+  end
+
+  test 'decline a star' do
+    star = @user.stars.create(date: @today, status: :candidate)
+
+    travel_to(@now) do
+      patch :update, stardom: {accept: 'false'}, format: :json
+    end
+
+    assert_equal 200, response.status
+    assert_equal :declined, star.reload.status
+  end
+
+  test 'update with invalid value 1' do
+    star = @user.stars.create(date: @today, status: :candidate)
+
+    travel_to(@now) do
+      patch :update, stardom: {accept: '1'}, format: :json
+    end
+
+    assert_equal 400, response.status
+    assert_equal :candidate, star.reload.status
+  end
+
+  test 'update with invalid value 2' do
+    star = @user.stars.create(date: @today, status: :candidate)
+
+    travel_to(@now) do
+      patch :update, format: :json
+    end
+
+    assert_equal 400, response.status
+    assert_equal :candidate, star.reload.status
+  end
 end
