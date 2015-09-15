@@ -10,7 +10,7 @@ class Api::StardomController < Api::ApplicationController
       status = current_user.star_status || :stargazer
     end
 
-    render json: {active: active, star_status: status}
+    render json: {active: active, star_status: status, date: today}
   end
 
   def update

@@ -27,6 +27,7 @@ class Api::StardomControllerTest < ActionController::TestCase
     assert_equal false, json['active']
     assert json.has_key?('star_status')
     assert_nil json['star_status']
+    assert_equal @now.to_date, json['date'].to_date
   end
 
   test 'when there are some stars' do
@@ -43,6 +44,7 @@ class Api::StardomControllerTest < ActionController::TestCase
     assert_equal true, json['active']
     assert json.has_key?('star_status')
     assert_equal 'stargazer', json['star_status']
+    assert_equal @now.to_date, json['date'].to_date
   end
 
   test 'when you are a candidate star' do
@@ -58,6 +60,7 @@ class Api::StardomControllerTest < ActionController::TestCase
 
     assert_equal true, json['active']
     assert_equal 'candidate', json['star_status']
+    assert_equal @now.to_date, json['date'].to_date
   end
 
   test 'when you are a star' do
@@ -73,6 +76,7 @@ class Api::StardomControllerTest < ActionController::TestCase
 
     assert_equal true, json['active']
     assert_equal 'accepted', json['star_status']
+    assert_equal @now.to_date, json['date'].to_date
   end
 
   test 'when you have declined to be a star' do
@@ -88,6 +92,7 @@ class Api::StardomControllerTest < ActionController::TestCase
 
     assert_equal true, json['active']
     assert_equal 'declined', json['star_status']
+    assert_equal @now.to_date, json['date'].to_date
   end
 
   test 'update should require authentication' do
