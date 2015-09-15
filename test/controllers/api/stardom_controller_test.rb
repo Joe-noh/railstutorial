@@ -95,6 +95,22 @@ class Api::StardomControllerTest < ActionController::TestCase
     assert_equal @now.to_date, json['date'].to_date
   end
 
+  test 'paramter date should be shifted 3 hours' do
+    today = Date.new(1970, 6, 10)
+
+    @user.stars.create(date: today, status: :accepted)
+
+    travel_to(Time.zone.local(1970, 6, 11, 2, 59)) do
+      get :show, format: :json
+    end
+    assert_equal today, JSON.parse(response.body)['date'].to_date
+
+    travel_to(Time.zone.local(1970, 6, 11, 3, 0)) do
+      get :show, format: :json
+    end
+    assert_equal today+1, JSON.parse(response.body)['date'].to_date
+  end
+
   test 'update should require authentication' do
     @request.headers["Authorization"] = nil
     patch :update, format: :json
