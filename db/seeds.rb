@@ -36,12 +36,7 @@ if Rails.env.development?
   end
 end
 
-if Rails.env.development? || Rails.env.production?
-  begin
-    ActiveRecord::Base.transaction do
-      AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
-    end
-  rescue => e
-    puts e
-  end
+if (Rails.env.development? || Rails.env.production?) && (AdminUser.count == 0)
+  AdminUser.create(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 end
+
