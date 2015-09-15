@@ -13,7 +13,7 @@ class Api::FetchingUsersTest < ActionDispatch::IntegrationTest
 
     assert json.is_a?(Array)
 
-    expected_attrs = %w[id name avatar_url].sort
+    expected_attrs = %w[id name avatar_url star].sort
     json.each do |user|
       assert_equal expected_attrs, user.keys.sort
     end
@@ -78,7 +78,7 @@ class Api::FetchingUsersTest < ActionDispatch::IntegrationTest
     assert json.is_a?(Array)
     assert User.where(id: json.map {|u| u["id"] }).all? {|user| @user.following? user }
 
-    expected_attrs = %w[id name avatar_url].sort
+    expected_attrs = %w[id name avatar_url star].sort
     json.each do |user|
       assert_equal expected_attrs, user.keys.sort
     end
@@ -92,7 +92,7 @@ class Api::FetchingUsersTest < ActionDispatch::IntegrationTest
     assert json.is_a?(Array)
     assert User.where(id: json.map {|u| u["id"] }).all? {|user| @user.followed_by? user }
 
-    expected_attrs = %w[id name avatar_url].sort
+    expected_attrs = %w[id name avatar_url star].sort
     json.each do |user|
       assert_equal expected_attrs, user.keys.sort
     end

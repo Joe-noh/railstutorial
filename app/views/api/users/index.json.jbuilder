@@ -1,1 +1,3 @@
-json.array!(@users, :id, :name, :avatar_url)
+json.array!(@users) do |user|
+    json.partial! user
+end
