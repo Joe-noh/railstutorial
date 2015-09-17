@@ -20,7 +20,8 @@ ja:
       credit_html: >-
         <a href="http://www.michaelhartl.com/">Michael Hartl</a>による<a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
   application:
-    login_required: ログインしてください。
+    login_required: &login_required
+      ログインしてください。
   helpers:
     label:
       user: &labels_user
@@ -111,7 +112,8 @@ ja:
       sign_up: 今すぐユーザ登録！
       submit: ログイン
     create:
-      account_not_activated: アカウントが有効化されていません。電子メールを確認して下さい。
+      account_not_activated: &account_not_activated
+        アカウントが有効化されていません。電子メールを確認して下さい。
       invalid_login: メールアドレスかパスワードが間違っています。
   static_pages:
     landing:
@@ -133,3 +135,16 @@ ja:
       message_html: >-
         Ruby on Rails Tutorialについての質問がある場合は<a href="http://www.railstutorial.org/#help">チュートリアルの“Help”の節</a>をご覧ください。
         このサンプルアプリケーションについては<a href="http://www.railstutorial.org/book"><em>Ruby on Rails Tutorial</em></a>をご覧ください。
+  error:
+    unauthorized: *login_required
+    account_not_activated: *account_not_activated
+    user_not_found: ユーザが見つかりません。
+    already_activated: すでに有効化されています。
+    invalid_activation_token: トークンが無効であるため、有効化できませんでした。
+    email_not_found: 無効なEmailアドレスです。
+    password_required: パスワードを入力してください。
+    reset_token_expired: トークンの期限が切れています。もう一度パスワードリセットの手続きをしてください。
+    invalid_email_password: 無効なEmailアドレスとパスワードの組み合わせです。
+    invalid_parameters: 無効なパラメータです。
+    not_elected: あなたはスターに選ばれていません！
+    not_permitted: アクセス権がありません。

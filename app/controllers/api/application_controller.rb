@@ -4,6 +4,9 @@ class Api::ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   include Api::SessionsHelper
+  include I18nHelper
+
+  before_action :set_locale
 
   def render_errors(error_messages, options)
     render options.merge(json: {"errors" => error_messages})

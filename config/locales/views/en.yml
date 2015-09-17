@@ -21,7 +21,8 @@ en:
         The <a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
         by <a href="http://www.michaelhartl.com/">Michael Hartl</a>
   application:
-    login_required: Please log in.
+    login_required: &login_required
+      Please log in.
   helpers:
     label:
       user: &labels_user
@@ -118,7 +119,8 @@ en:
       sign_up: Sign up now!
       submit: Log in
     create:
-      account_not_activated: Account not activated. Check your email for the activation link.
+      account_not_activated: &account_not_activated
+        Account not activated. Check your email for the activation link.
       invalid_login: Invalid email or password.
   static_pages:
     landing:
@@ -152,3 +154,16 @@ en:
         To get help on this sample app, see the
         <a href="http://www.railstutorial.org/book"><em>Ruby on Rails Tutorial</em>
         book</a>.
+  error:
+    unauthorized: *login_required
+    account_not_ativated: *account_not_activated
+    user_not_found: No user found.
+    already_activated: Your account have already activated.
+    invalid_activation_token: Activation failed because the token is invalid.
+    email_not_found: Given email is invalid.
+    password_required: Please input password.
+    reset_token_expired: The token is expired. Please try all over again.
+    invalid_email_password: Invalid email/password.
+    invalid_parameters: Invalid parameters.
+    not_elected: You are not elected for stars!!
+    not_permitted: You don't have permission to access.

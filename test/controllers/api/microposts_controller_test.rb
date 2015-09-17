@@ -43,7 +43,7 @@ class Api::MicropostsControllerTest < ActionController::TestCase
     json = JSON.parse(response.body)
 
     assert_equal 401, response.status
-    assert json["errors"].member? "Unauthorized"
+    assert_match /please log in/i,  json["errors"].first
   end
 
   test 'should return 403 if current_user is not the owner' do
