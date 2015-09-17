@@ -13,7 +13,7 @@ class Api::UsersControllerTest < ActionController::TestCase
     json = JSON.parse(response.body)
 
     assert_equal 401, response.status
-    assert_match /unauthorized/i, json["errors"].first
+    assert_match /please log in/i, json["errors"].first
   end
 
   test 'update should return 401 when auth_token is missing' do
@@ -22,7 +22,7 @@ class Api::UsersControllerTest < ActionController::TestCase
     json = JSON.parse(response.body)
 
     assert_equal 401, response.status
-    assert_match /unauthorized/i, json["errors"].first
+    assert_match /please log in/i, json["errors"].first
   end
 
   test 'update should return 403 when logged in as wrong user' do
@@ -43,7 +43,7 @@ class Api::UsersControllerTest < ActionController::TestCase
     json = JSON.parse(response.body)
 
     assert_equal 401, response.status
-    assert_match /unauthorized/i, json["errors"].first
+    assert_match /please log in/i, json["errors"].first
   end
 
   test "destroy should return 403 when the request has non-admin's token" do
@@ -79,7 +79,7 @@ class Api::UsersControllerTest < ActionController::TestCase
     json = JSON.parse(response.body)
 
     assert_equal 401, response.status
-    assert_match /unauthorized/i, json["errors"].first
+    assert_match /please log in/i, json["errors"].first
   end
 
   test 'followers should returen 401 when auth_token is missing' do
@@ -88,6 +88,6 @@ class Api::UsersControllerTest < ActionController::TestCase
     json = JSON.parse(response.body)
 
     assert_equal 401, response.status
-    assert_match /unauthorized/i, json["errors"].first
+    assert_match /please log in/i, json["errors"].first
   end
 end

@@ -18,13 +18,13 @@ class Api::StardomController < Api::ApplicationController
 
     accept = params[:stardom] && params[:stardom][:accept]
     if accept != 'true' && accept != 'false'
-      render_errors [t "error.invalid_parameters", status: :bad_request
+      render_errors [t("error.invalid_parameters")], status: :bad_request
     else
       if star = current_user.stars.find_by(date: today)
         star.update(status: (accept != 'false' ? :accepted : :declined))
         render json: {}, status: :ok
       else
-        render_errors [t "error.not_elected"], status: :forbidden
+        render_errors [t("error.not_elected")], status: :forbidden
       end
     end
   end

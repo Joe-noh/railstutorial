@@ -10,13 +10,13 @@ class Api::PasswordResetsController < Api::ApplicationController
       @user.send_password_reset_email
       render json: "", status: :created
     else
-      render_errors [t "error.email_not_found"], status: :unprocessable_entity
+      render_errors [t("error.email_not_found")], status: :unprocessable_entity
     end
   end
 
   def update
     if params[:user][:password].blank?
-      render_errors [t "error.password_required"], status: :unprocessable_entity
+      render_errors [t("error.password_required")], status: :unprocessable_entity
     elsif @user.update(user_params)
       render_authenticated @user, status: :accepted
     else
@@ -42,7 +42,7 @@ class Api::PasswordResetsController < Api::ApplicationController
 
   def check_expiration
     if @user.password_reset_expired?
-      render_errors [t "error.reset_token_expired"], status: :bad_request
+      render_errors [t("error.reset_token_expired")], status: :bad_request
     end
   end
 end

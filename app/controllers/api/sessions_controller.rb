@@ -7,11 +7,10 @@ class Api::SessionsController < Api::ApplicationController
       if @user.activated?
         render_authenticated @user, status: :created
       else
-        message = "Account not activated. Check your email for the activation link."
-        render_errors [message], status: :forbidden
+        render_errors [t("error.account_not_activated")], status: :forbidden
       end
     else
-      render_errors [t "error.invalid_email_password"], status: :unauthorized
+      render_errors [t("error.invalid_email_password")], status: :unauthorized
     end
   end
 end

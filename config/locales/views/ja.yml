@@ -137,7 +137,7 @@ ja:
         このサンプルアプリケーションについては<a href="http://www.railstutorial.org/book"><em>Ruby on Rails Tutorial</em></a>をご覧ください。
   error:
     unauthorized: *login_required
-    account_not_ativated: *account_not_activated
+    account_not_activated: *account_not_activated
     user_not_found: ユーザが見つかりません。
     already_activated: すでに有効化されています。
     invalid_activation_token: トークンが無効であるため、有効化できませんでした。
