@@ -13,7 +13,7 @@ class Api::UsersController < Api::ApplicationController
   def show
     @microposts = @user.microposts.paginate(page: params[:page])
     unless @user.activated
-      render_errors ["Account not activated"], status: :forbidden
+      render_errors t("error.account_not_activated"), status: :forbidden
     end
   end
 
@@ -60,7 +60,7 @@ class Api::UsersController < Api::ApplicationController
       }
       render json: info, status: :ok
     else
-      render_errors ["Not found"], status: not_found
+      render_errors [t "error.user_not_found"], status: not_found
     end
   end
 
@@ -107,6 +107,6 @@ class Api::UsersController < Api::ApplicationController
   end
 
   def render_forbidden
-    render_errors ["You don't have permission to access"], status: :forbidden
+    render_errors [t "error.not_permitted"], status: :forbidden
   end
 end

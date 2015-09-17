@@ -8,11 +8,11 @@ class Api::AccountActivationsController < Api::ApplicationController
       render_authenticated @user, status: :ok
     else
       if !@user
-        render_errors ["User not found"], status: :not_found
+        render_errors [t "error.user_not_found"], status: :not_found
       elsif activated
-        render_errors ["User has already been activated"], status: :unprocessable_entity
+        render_errors [t "error.already_activated"], status: :unprocessable_entity
       elsif !authenticated
-        render_errors ["Invalid token"], status: :not_found
+        render_errors [t "error.invalid_activation_token"], status: :not_found
       end
     end
   end

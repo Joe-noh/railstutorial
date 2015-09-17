@@ -11,7 +11,7 @@ class Api::SessionsController < Api::ApplicationController
         render_errors [message], status: :forbidden
       end
     else
-      render_errors ["Invalid email or password"], status: :unauthorized
+      render_errors [t "error.invalid_email_password"], status: :unauthorized
     end
   end
 end

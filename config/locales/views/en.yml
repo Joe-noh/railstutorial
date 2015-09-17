@@ -159,7 +159,7 @@ en:
     account_not_ativated: *account_not_activated
     user_not_found: No user found.
     already_activated: Your account have already activated.
-    invalid_token: Activation failed because the token is invalid.
+    invalid_activation_token: Activation failed because the token is invalid.
     email_not_found: Given email is invalid.
     password_required: Please input password.
     reset_token_expired: The token is expired. Please try all over again.

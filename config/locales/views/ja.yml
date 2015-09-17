@@ -140,7 +140,7 @@ ja:
     account_not_ativated: *account_not_activated
     user_not_found: ユーザが見つかりません。
     already_activated: すでに有効化されています。
-    invalid_token: トークンが無効であるため、有効化できませんでした。
+    invalid_activation_token: トークンが無効であるため、有効化できませんでした。
     email_not_found: 無効なEmailアドレスです。
     password_required: パスワードを入力してください。
     reset_token_expired: トークンの期限が切れています。もう一度パスワードリセットの手続きをしてください。

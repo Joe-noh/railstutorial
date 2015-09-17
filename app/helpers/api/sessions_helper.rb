@@ -4,7 +4,7 @@ module Api::SessionsHelper
       user_id = decode_token(request.headers["Authorization"])
       @current_user = User.find(user_id)
     rescue
-      render json: {errors: ["Unauthorized"]}, status: :unauthorized
+      render json: {errors: t("error.unauthorized")}, status: :unauthorized
     end
   end
 
