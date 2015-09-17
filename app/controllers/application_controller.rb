@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include SessionsHelper
+  include I18nHelper
 
   before_action :set_locale
 
@@ -14,20 +15,5 @@ class ApplicationController < ActionController::Base
       flash[:danger] = t(:login_required, scope: 'application')
       redirect_to login_url
     end
-  end
-
-  private
-
-  def set_locale
-    # Save locale in session when explicitly specified
-    session[:locale] = params[:locale] if params[:locale] and I18n.locale_available?(params[:locale])
-
-    # Locale defaults to HTTP_ACCEPT_LANGUAGE then the default locale
-    locale = session[:locale] || http_accept_language.compatible_language_from(I18n.available_locales)
-    I18n.locale = locale || I18n.default_locale
-  end
-
-  def set_admin_locale
-      I18n.locale = :en
   end
 end
